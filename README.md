@@ -1,7 +1,59 @@
 # avaitionChatbot
 
-Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)[^1] and [flightradar24.com](https://www.flightradar24.com/), to get information about certain things.
+Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)[^1] and [flightradar24.com](https://www.flightradar24.com/), to get information about certain things. Please read all of it.
 
+## REQUIREMENTS:
+
+ - ### requests:
+   - the package [requests](https://pypi.org/project/requests/) must be installed
+
+ - ### FlightRadarAPI:
+   - the package [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/) must be installed
+   - parts to edit:
+     - on line 82
+       change
+       ```
+       def get_flights(self, airline = None, bounds = None):
+       ```
+       to
+       ```
+       def get_flights(self, airline = None, bounds = None, airport = None, aircraft = None, number = None, registration = None, display = 0):
+       ```
+     - change the block starting on the comment on line 91
+       ```
+       # Insert the parameters "airline" and "bounds" in the dictionary for the request.
+       if airline: request_params["airline"] = airline
+       if bounds: request_params["bounds"] = bounds.replace(",", "%2C")
+       if airport: request_params["airport"] = airport
+       if aircraft: request_params["type"] = aircraft
+       if number: request_params["flight"] = number
+       if registration: request_params["reg"] = registration
+       ```
+     - under 
+       ```
+       flights = []
+       ```
+       add
+       ```
+       flightData = {}
+       ```
+     - under
+       ```
+       flights.append(Flight(flight_id, flight_info))
+       ```
+       add
+       ```
+       flights[flight_id] = flight_info
+       ```
+     - change
+       ```
+       return flights
+       ```
+       to
+       ```
+       if display == 0: return flights
+       elif display == 1: return flightData
+       ```
 
 ## CLASSES:
 
