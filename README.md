@@ -2,6 +2,8 @@
 
 Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)[^1] and [flightradar24.com](https://www.flightradar24.com/), to get information about certain things. Please read all of it.
 
+* note: there may be some errors as this code is not excactly the same as it is on my computer
+
 ## REQUIREMENTS:
 
 - read [requirements.md](requirements.md)
