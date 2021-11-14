@@ -1,16 +1,19 @@
 # avaitionChatbot
 
-Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)<!--[^1]--> and [flightradar24.com](https://www.flightradar24.com/), to get information about certain things.
+Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)[^1] and [flightradar24.com](https://www.flightradar24.com/), to get information about certain things.
 
 
 ## CLASSES:
 
   - ### tracker
 
-    - returns all the live flights that match the criteria, including aircraft type, airline, airport, etc., given during initialization.   
+    - returns all the live flights that match the criteria, including aircraft type, airline, airport, etc., given during initialization.
+      - includes aircraft type, aircraft registration, flight number, origin/destination
+      - includes total and timestamp at the end   
   
-    #### Shell
+    #### _Shell_
     ```
+    >>> 
     >>> hkg350 = tracker(airport='HKG', aircraft='A35') # all the (live) flights to and from HKG & on an a350 (-900 or -1000)
     >>> 
     >>> hkg350.now()
@@ -38,12 +41,13 @@ Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)<!--[^1]--> and 
     Timestamp: Sat 13 Nov 2021 14:20:26
     ```
     
-  - ### schedule<!--[^2]-->
+  - ### schedule[^2]
 
-    -  .
+    -  returns the flights requested from a certain airport within the next seven days.[^3]
     
-    #### Shell
+    #### _Shell_
     ```
+    >>> 
     >>> dub = schedule('dub') # for flights to and from DUB
     >>> 
     >>> # 'to' method
@@ -74,9 +78,6 @@ Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)<!--[^1]--> and 
     
     ```
 
-<!--
-----
-
-[^1]: will need to edited a bit
+[^1]: not mine, will need to edited a bit
 [^2]: for some reason, data for flights got by the 'on' and 'to' methods are slightly different
--->
+[^3]: dict format → {'flight':{'number':None,'airport':{'origin':{'country':None,'IATA':None,'ICAO':None},'destination':{'country':None,'IATA':None,'ICAO':None}},'airline':{'name':None,'IATA':None,'ICAO':None},'aircraft':[],'time':{'departure':[],'arrival':[]},'operatingDays':[]}}
