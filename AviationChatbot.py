@@ -40,7 +40,7 @@ class tracker:
         try: self.registration = registration.upper()
         except: self.registration = None
 
-        self.parameters = {'airline':self.airline,'bounds':self.bounds,'airport':self.airport,'aircraft':self.aircraft,'number':self.number,'registration':self.registration,'display':1}
+        self.parameters = {'airline':self.airline,'bounds':self.bounds,'airport':self.airport,'aircraft':self.aircraft,'number':self.number,'registration':self.registration}
         
         if template: self.template = template
         else: self.template = '<{ac} ({reg}) - [{num}] - Origin: {oa} - Destination: {da} | FR24_ID: {id}>'
