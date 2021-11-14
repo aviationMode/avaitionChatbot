@@ -4,7 +4,7 @@ Using [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/)[^1] and [flight
 
 ## REQUIREMENTS:
 
- 
+- read [requirements.md](requirements.md)
 
 ## CLASSES:
 
