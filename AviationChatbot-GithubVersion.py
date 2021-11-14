@@ -85,58 +85,48 @@ class tracker:
 from FlightRadar24.core import Core
 
 class schedule:
-    # ERROR: the origin and destination are mixed; one will always be the origin and the other the destination no matter what
+    # the origin and destination are mixed; one will always be the origin and the other the destination no matter what
     '''
-    Methods:
-        to(self, destination)
-            
-
-        get(slef, destination)
-            Returns the assosiated list of dicts cached from the to() method
-
-    Data:
-        flights
-            list of dicts.
-            format of dicts:
+    dict format:
+        {
+        'flight':
+            {
+            'number':
+                flightNumber,
+            'airport':
                 {
-                'flight':
-                    {
-                    'number':
-                        flightNumber,
-                    'airport':
-                        {
-                        'origin':
-                        {
-                            'IATA':
-                                originAirportIATA,
-                            'ICAO':
-                                originAirportICAO
-                        },
-                        'destination':
-                        {
-                            'IATA':
-                                destinationAirportIATA,
-                            'ICAO':
-                                destinationAirportICAO
-                        }
-                        },
-                    'airline':
-                        {
-                        'name':name,
-                        'IATA':iata,
-                        'ICAO':icao
-                        },
-                    'aircraft':
-                        [aircraft],
-                    'time':
-                        {
-                        'departure':[timeOfDeparture],
-                        'arrival':[timeOfArrival]
-                        },
-                    'operatingDays':
-                        [Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday]
-                    }
+                'origin':
+                {
+                    'IATA':
+                        originAirportIATA,
+                    'ICAO':
+                        originAirportICAO
+                },
+                'destination':
+                {
+                    'IATA':
+                        destinationAirportIATA,
+                    'ICAO':
+                        destinationAirportICAO
                 }
+                },
+            'airline':
+                {
+                'name':name,
+                'IATA':iata,
+                'ICAO':icao
+                },
+            'aircraft':
+                [aircraft],
+            'time':
+                {
+                'departure':[timeOfDeparture],
+                'arrival':[timeOfArrival]
+                },
+            'operatingDays':
+                [Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday]
+            }
+        }
         
     '''
 
@@ -249,7 +239,6 @@ class schedule:
         '''
         global page
         page = requests.get(f'https://www.flightradar24.com/data/airlines/{iata}-{icao}/routes?get-airport-arr-dep={self.o["code"]["iata"]}&format=json', headers=Core.headers)
-##        print(page.url)
         page = page.json()
 
         airline = fr24.get_airlines()
@@ -338,32 +327,24 @@ class schedule:
             except KeyError:                
                 self.allFlights[x['flight']['airport'][('origin' if (x['flight']['airport']['origin']['IATA'] != self.o['code']['iata'].upper()) else 'destination')]['IATA'].lower()] = [x]
             else:
-                #print(type(self.allFlights[x['flight']['airport'][('origin' if (x['flight']['airport']['origin']['IATA'] != self.o['code']['iata'].upper()) else 'destination')]['IATA'].lower()]))
                 self.allFlights[x['flight']['airport'][('origin' if (x['flight']['airport']['origin']['IATA'] != self.o['code']['iata'].upper()) else 'destination')]['IATA'].lower()].append(x)
         ######
 
         for x in self.allFlights:
-            #print(self.allFlights[x])
             for n in self.allFlights[x]:
                 if self.allFlights[x].count(n) > 1: self.allFlights[x].remove(n)
         
 
     def get(self, destination):
         if fr24.get_airport(destination): return(self.allFlights[fr24.get_airport(destination)['code']['iata'].lower()])
-    def flight(self, flightNumber): #, error=None
+    def flight(self, flightNumber):
         '''
         Param flightNumber: the IATA flight number. eg. BA1
-        #Param error: the error message if flight is not found
         '''
-        #found = 0
         for p in self.allFlights:
             for f in self.allFlights[p]:
                 if f['flight']['number'] == flightNumber.upper():
-                    #found += 1
                     return(f)
-##        if not(found) and not(error): return(f'{flightNumber} is not in allFlights')
-##        else: return(error)
-
 
     def filter(self, aircraft=None, airport=None, airline=None, operatingDay=None):
         '''
