@@ -1,9 +1,9 @@
 # Requirements
 
-- ### requests:
-   - the package [requests](https://pypi.org/project/requests/) must be installed
+- ### FlightRadarAPI:
+   - read the [requirements for that](https://github.com/JeanExtreme002/FlightRadarAPI/blob/main/requirements.txt)
 
- - ### FlightRadarAPI:
+ - ### FlightRadarAPI.api:
    - the package [FlightRadarAPI](https://pypi.org/project/FlightRadarAPI/) must be installed
    - if it is installed and already in use, consider creating a copy of the .api file to use for this module
    - parts to edit:
