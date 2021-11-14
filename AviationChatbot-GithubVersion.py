@@ -336,7 +336,8 @@ class schedule:
         
 
     def get(self, destination):
-        if fr24.get_airport(destination): return(self.allFlights[fr24.get_airport(destination)['code']['iata'].lower()])
+        try: return(self.allFlights[fr24.get_airport(destination)['code']['iata'].lower()])
+        except: pass
     def flight(self, flightNumber):
         '''
         Param flightNumber: the IATA flight number. eg. BA1
@@ -356,7 +357,7 @@ class schedule:
         Param operatingDays: one of the following: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
         '''
 
-        matching = [] # list of flight numbers that mathch the criteria
+        matching = [] # list of flight numbers that match the criteria
 
         if aircraft: aircraft = aircraft.upper()
         if airport: airport = fr24.get_airport(airport)['code']['iata'].upper()
