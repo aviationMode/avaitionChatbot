@@ -4,7 +4,7 @@
 using the flightradar24 api and other methods to get information
 '''
 
-from flightRadarAPIcopy import FlightRadar24API
+from FlightRadar24.api import FlightRadar24API
 fr24 = FlightRadar24API()
 
 import requests
